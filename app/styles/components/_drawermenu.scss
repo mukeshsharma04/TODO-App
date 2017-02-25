@@ -1,0 +1,10 @@
+.mdl-layout__drawer > .mdl-layout-title {
+    background-color : $drawer-background;
+    color : $white;
+}
+
+.mdl-navigation > .mdl-list > .mdl-list__item a {
+  text-decoration : none;
+  font-weight: bold;
+  color: $dark_grey;
+}
