@@ -7,13 +7,13 @@ var DrawerMenu = (props) => {
   <div className="mdl-layout__drawer hel">
    <span
     className="mdl-layout-title" >
-    ReactBoilerPlate2
+    TODO APP
    </span>
    <nav className="mdl-navigation">
     <ul className="demo-list-item mdl-list">
      <li className="mdl-list__item">
       <IndexLink to="/" activeClassName="active">
-       Menu Items
+       TODOS
       </IndexLink>
      </li>
     </ul>
