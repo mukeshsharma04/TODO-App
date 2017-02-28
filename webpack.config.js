@@ -1,5 +1,3 @@
-var webpack = require('webpack');
-
 module.exports  = {
   entry : {
     jsx : './app/app.jsx',
