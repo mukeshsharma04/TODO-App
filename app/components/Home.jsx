@@ -5,10 +5,13 @@ import SearchToDo  from './SearchToDo';
 import AddToDo  from './AddToDo';
 import uuid from 'node-uuid';
 import TodoAPI from './../api/ToDoAPI';
+import moment from 'moment';
 
 var Home = React.createClass({
  getInitialState : function() {
   return {
+   showCompleted : false,
+   searchText : '',
    todos : TodoAPI.getTodos()
   };
  },
@@ -25,7 +28,9 @@ var Home = React.createClass({
     {
      id : uuid(),
      text : item,
-     completed : false
+     completed : false,
+     createdAt : moment().unix(),
+     completedAt : undefined
     }
    ]
   });
@@ -35,6 +40,7 @@ var Home = React.createClass({
   var updatedTodos = this.state.todos.map((todo) => {
    if(todo.id === id) {
     todo.completed = !todo.completed;
+    todo.completedAt = todo.completed ? moment().unix() : undefined;
    }
 
    return todo;
@@ -43,16 +49,24 @@ var Home = React.createClass({
   this.setState({todos : updatedTodos});
  },
 
+ handleSearch : function (search_txt,shw_completed) {
+  this.setState({
+   showCompleted : shw_completed,
+   searchText : search_txt.toLowerCase()
+  });
+ },
+
  render : function() {
-  console.log(this.state);
-  var {todos} = this.state;
+  var {todos, showCompleted, searchText} = this.state;
+
+  var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
   return (
    <div className="mdl-grid">
     <div className="mdl-cell mdl-cell--2-offset mdl-cell--8-col">
      <div className="demo-card-square mdl-card mdl-shadow--2dp">
        <div className="mdl-card__supporting-text">
-        <SearchToDo/>
-        <ToDoList todos={todos} onToggle={this.handleToggle}/>
+        <SearchToDo onSearch={this.handleSearch}/>
+        <ToDoList todos={filteredTodos} onToggle={this.handleToggle}/>
         <AddToDo onAddToDo={this.handleNewToDo}/>
        </div>
      </div>

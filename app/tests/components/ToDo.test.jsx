@@ -25,10 +25,6 @@ describe('ToDo', () => {
 
   expect(spy).toHaveBeenCalledWith(19);
 
-  //     todoApp.setState({todos:[todoData]});
-  //     expect(todoApp.state.todos[0].completed).toBe(false);
-  //     todoApp.handleToggle(todoApp.state.todos[0].id);
-  //     expect(todoApp.state.todos[0].completed).toBe(true);
  });
 
 });
