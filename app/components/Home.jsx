@@ -52,7 +52,7 @@ var Home = React.createClass({
     <div className="mdl-cell mdl-cell--2-offset mdl-cell--8-col">
      <div className="demo-card-square mdl-card mdl-shadow--2dp">
        <div className="mdl-card__supporting-text">
-        <SearchToDo onSearch={this.handleSearch}/>
+        <SearchToDo />
         <ToDoList/>
         <AddToDo onAddToDo={this.handleNewToDo}/>
        </div>

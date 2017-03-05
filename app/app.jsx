@@ -14,11 +14,6 @@ store.subscribe(() => {
  console.log("new state", store.getState());
 });
 
-store.dispatch(addToDo('New Todo Text'));
-store.dispatch(setSearchText('New'));
-store.dispatch(toggleShowCompleted());
-
-
 ReactDOM.render(
  <Provider store={store}>
    <Router history={browserHistory}>
