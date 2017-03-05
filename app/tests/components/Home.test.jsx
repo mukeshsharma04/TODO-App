@@ -2,36 +2,28 @@ import React from 'react';
 import expect from 'expect';
 import Home from './../../components/Home';
 import AddToDo from './../../components/AddToDo';
-import ToDoList from './../../components/ToDoList';
+import {ToDoList} from './../../components/ToDoList';
 import TestUtils from 'react-addons-test-utils';
 import $ from "jquery";
+import {Provider} from 'react-redux';
+import {configure} from './../../store/configureStore';
 
 describe('Home', () => {
  it('should exist', () => {
   expect(Home).toExist();
  });
 
- it('should add new todo on AddToDo', () => {
-  var new_todo = 'Hey i am the test todo item';
-  var todoApp = TestUtils.renderIntoDocument(<Home/>);
-      todoApp.setState({todos:[]});
-      todoApp.handleNewToDo(new_todo);
+ it('should render todo LIST', () => {
+  let store = configure();
+  let provider = TestUtils.renderIntoDocument(
+   <Provider store={store}>
+    <Home/>
+   </Provider>
+  );
 
-      expect(todoApp.state.todos[0].text).toBe(new_todo);
+  const home = TestUtils.scryRenderedComponentsWithType(provider, Home)[0]
+  const toDoList = TestUtils.scryRenderedComponentsWithType(home, ToDoList);
+
+  expect(toDoList.length).toEqual(1);
  });
-
- it('should toogle completed value on handleToggle', () => {
-  var todoData = {
-   id : 11,
-   text : "Hey i am here to chekc togggle",
-   completed : false
-  };
-
-  var todoApp = TestUtils.renderIntoDocument(<Home/>);
-      todoApp.setState({todos:[todoData]});
-      expect(todoApp.state.todos[0].completed).toBe(false);
-      todoApp.handleToggle(todoApp.state.todos[0].id);
-      expect(todoApp.state.todos[0].completed).toBe(true);
- });
-
 });

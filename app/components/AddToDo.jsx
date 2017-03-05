@@ -1,14 +1,18 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {addToDo} from './../actions/actions'
 
-
-var AddToDo = React.createClass({
+export var AddToDo = React.createClass({
 
  handleFormSubmit : function(e) {
   e.preventDefault();
-  var get_to_do = this.refs.add_todo.value;
-  if(get_to_do) {
+  const {dispatch} = this.props;
+  var todoText = this.refs.add_todo.value;
+  if(todoText) {
    this.refs.add_todo.value = "";
-   this.props.onAddToDo(get_to_do);
+   dispatch(addToDo(todoText));
+  }else {
+    this.refs.add_todo.focus();
   }
  },
 
@@ -33,4 +37,4 @@ var AddToDo = React.createClass({
  }
 });
 
-module.exports = AddToDo;
+export default connect()(AddToDo);

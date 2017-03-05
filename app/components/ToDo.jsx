@@ -1,9 +1,11 @@
 import React from 'react';
 import moment from 'moment';
+import {connect} from 'react-redux';
+import {toggleToDo} from './../actions/actions'
 
-var ToDo = React.createClass({
+export var ToDo = React.createClass({
  render : function() {
-  var {id,text,completed, createdAt, completedAt} = this.props;
+  var {id,text,completed, createdAt, completedAt, dispatch} = this.props;
   var renderDate = () => {
    var ts = moment.unix(createdAt).format('MMM Do YYYY @ h:mm a');
    var msg = 'created';
@@ -15,7 +17,7 @@ var ToDo = React.createClass({
    return msg + ts;
   };
   return (
-     <li onClick={() => {this.props.onToggle(id)}}  className="list mdl-list__item mdl-list__item--three-line">
+     <li onClick={() => { dispatch(toggleToDo(id)); }}  className="list mdl-list__item mdl-list__item--three-line">
        <span className="mdl-list__item-primary-content">
          <span>
           <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor={id}>
@@ -33,4 +35,4 @@ var ToDo = React.createClass({
  }
 });
 
-module.exports = ToDo;
+export default connect()(ToDo);

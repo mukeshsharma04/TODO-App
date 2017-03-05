@@ -36,19 +36,6 @@ var Home = React.createClass({
   });
  },
 
- handleToggle : function(id) {
-  var updatedTodos = this.state.todos.map((todo) => {
-   if(todo.id === id) {
-    todo.completed = !todo.completed;
-    todo.completedAt = todo.completed ? moment().unix() : undefined;
-   }
-
-   return todo;
-  });
-
-  this.setState({todos : updatedTodos});
- },
-
  handleSearch : function (search_txt,shw_completed) {
   this.setState({
    showCompleted : shw_completed,
@@ -66,7 +53,7 @@ var Home = React.createClass({
      <div className="demo-card-square mdl-card mdl-shadow--2dp">
        <div className="mdl-card__supporting-text">
         <SearchToDo onSearch={this.handleSearch}/>
-        <ToDoList todos={filteredTodos} onToggle={this.handleToggle}/>
+        <ToDoList/>
         <AddToDo onAddToDo={this.handleNewToDo}/>
        </div>
      </div>
