@@ -1,4 +1,4 @@
-import {setSearchText, addToDo, toggleShowCompleted, toggleToDo} from './../../actions/actions';
+import {setSearchText, addToDo, toggleShowCompleted, toggleToDo, addToDos} from './../../actions/actions';
 import expect from 'expect';
 
 
@@ -20,6 +20,24 @@ describe('Actions', () => {
   };
 
   const res = addToDo(action.text);
+  expect(res).toEqual(action);
+ });
+
+ it('should generate add todos action', () => {
+  let todos = [{
+   id : 1,
+   text : "im text",
+   completed : false,
+   createdAt : 500,
+   completedAt : undefined
+  }];
+
+  const action = {
+   type : 'ADD_TODOS',
+   todos
+  };
+
+  const res = addToDos(todos);
   expect(res).toEqual(action);
  });
 

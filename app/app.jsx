@@ -4,15 +4,23 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 import {Route, Router, IndexRoute, hashHistory, browserHistory} from 'react-router';
 import Main from './components/Main';
 import Home from './components/Home';
-import {setSearchText, addToDo, toggleShowCompleted, toggleToDo} from './actions/actions';
+import {setSearchText, addToDo, toggleShowCompleted, toggleToDo, addToDos} from './actions/actions';
 import {Provider} from 'react-redux';
-const store = require('./store/configureStore').configure();
+import ToDoAPI from './api/ToDoAPI';
+import {configure} from './store/configureStore';
+
+const store = configure();
 require('./styles/app.scss');
 injectTapEventPlugin();
 
 store.subscribe(() => {
- console.log("new state", store.getState());
+ const state = store.getState();
+ console.log("New state", state);
+ ToDoAPI.setTodos(state.todos);
 });
+
+var initalTodos = ToDoAPI.getTodos();
+store.dispatch(addToDos(initalTodos));
 
 ReactDOM.render(
  <Provider store={store}>
